@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <title>FitneXX</title>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo">FitneXX</a>
+      <div class="bx bx-menu" id="menu-icon"></div>
+      <ul class="navbar">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">about us</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#review">Review</a></li>
+      </ul>
+
+      <div class="top-btn">
+        <a href="#" class="nav-btn">Join Us</a>
+      </div>
+    </header>
+
+    <section class="home" id="home">
+      <div class="home-content" data-aos="zoom-in">
+        <h3>build your</h3>
+        <h1>Dream Physique</h1>
+        <h3><span class="multiple-text">Bodybuilding</span></h3>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente cum
+          voluptatem mollitia deserunt dolorem. Totam fuga enim molestiae eos
+          natus?
+        </p>
+        <a href="#" class="btn">Join Us</a>
+        <div class="home-img" data-aos="zoom-in">
+          <img src="picture/heroImage.png" alt="Home Image" />
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <h2 class="heading" data-aos="zoom-in-down">Our <span>Services</span></h2>
+      <div class="services-content">
+        <div class="row" data-aos="zoom-in-up">
+          <h4>Workout Logging</h4>
+          <p>Log your daily workouts and track your progress.</p>
+        </div>
+        <div class="row">
+          <h4>Meal Planning</h4>
+          <p>Plan meals according to your dietary preferences.</p>
+        </div>
+        <div class="row">
+          <h4>Progress Tracking</h4>
+          <p>Visualize your fitness journey with charts and graphs.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="workout" id="workout">
+      <h2 class="heading" data-aos="zoom-in-down">
+        Log Your <span>Workout</span>
+      </h2>
+      <div class="workout-form">
+        <input type="text" id="workout-name" placeholder="Workout Name" />
+        <input
+          type="number"
+          id="workout-duration"
+          placeholder="Duration (mins)"
+        />
+        <input
+          type="number"
+          id="calories-burned"
+          placeholder="Calories Burned"
+        />
+        <button id="log-workout" class="btn">Log Workout</button>
+      </div>
+      <div class="workout-log">
+        <h3>Workout History</h3>
+        <ul id="workout-list"></ul>
+      </div>
+    </section>
+
+    <section class="meal" id="meal">
+      <h2 class="heading" data-aos="zoom-in-down">
+        Plan Your <span>Meals</span>
+      </h2>
+      <div class="meal-form">
+        <input type="text" id="meal-query" placeholder="Search for a meal" />
+        <button id="search-meal" class="btn">Search</button>
+      </div>
+      <div class="meal-results">
+        <h3>Meal Suggestions</h3>
+        <ul id="meal-list"></ul>
+      </div>
+    </section>
+
+    <section class="progress" id="progress">
+      <h2 class="heading" data-aos="zoom-in-down">
+        Track Your <span>Progress</span>
+      </h2>
+      <div class="progress-chart">
+        <canvas id="progressChart"></canvas>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <h2 class="heading" data-aos="zoom-in-down">Our<span>Services</span></h2>
+      <div class="services-content">
+        <div class="row" data-aos="zoom-in-up">
+          <img src="" alt="" />
+          <h4>Physical Fitness</h4>
+        </div>
+
+        <div class="row">
+          <img src="" alt="" />
+          <h4>Weight Gain</h4>
+        </div>
+
+        <div class="row">
+          <img src="" alt="" />
+          <h4>Strength training</h4>
+        </div>
+
+        <div class="row">
+          <img src="" alt="" />
+          <h4>fat loss</h4>
+        </div>
+
+        <div class="row">
+          <img src="" alt="" />
+          <h4>Weight lifting</h4>
+        </div>
+
+        <div class="row">
+          <img src="" alt="" />
+          <h4>Running</h4>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="social">
+        <a href="#" id=""><i class="bx bxl-facebook-circle"></i></a>
+        <a href="#" id=""><i class="bx bxl-instagram"></i></a>
+        <a href="#" id=""><i class="bx bxl-twitter"></i></a>
+      </div>
+      <p class="copyright">&copy; FitneXX-All rights reserved</p>
+    </footer>
+  </body>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      offset: 300,
+      duration: 1400,
+    });
+  </script>
+  <script src="main.js"></script>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+</html>
