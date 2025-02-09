@@ -1,0 +1,23 @@
+# Ignore all .log files
+*.log
+
+# Ignore node_modules folder (for Node.js projects)
+node_modules/
+
+# Ignore environment files
+.env
+
+# Ignore compiled Python files
+*.pyc
+
+# Ignore build folders
+dist/
+build/
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore IDE files (e.g., IntelliJ, Eclipse)
+.idea/
+*.iml
+

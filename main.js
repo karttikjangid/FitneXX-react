@@ -1,146 +1,92 @@
-// const apikey = "256324b7c3e2571849f5d04307ab7d5f"
-// const applicationid = "cdcc438c"
-// const endpoint = 'https://trackapi.nutritionix.com/v2/natural/nutrients';
-
-// fetch(endpoint,{
-//     method:'POST',
-//     headers:{
-//     'Content-Type':'application/json',
-//     'x-app-id':'applicationid',
-//     'x-app-key':'apikey'
-//     },
-// })
-// .then(response=>response.json()
-
-// )
-// .then(data=>{
-//     console.log('Nutritional Information:',data);
-// })
-// .catch(error=>{
-//     console.error(error);
-// });
-
-let menu = document.querySelector("#menu-icon");
-let navbar = document.querySelector(".navbar");
-menu.onclick = () => {
-  menu.classList.toggle("bx-x");
-  menu.classList.toggle("active");
-};
-
-window.onscroll = () => {
-  menu.classList.remove("bx-x");
-  menu.classList.remove("active");
-};
-
-const typed = new Typed(".multiple-text", {
-  strings: [
-    "FitneXX",
-    "Weight Gain",
-    "Strength Training",
-    "fat loss",
-    "Weight Lifting",
-    "Running",
-  ],
-  typeSpeed: 50,
-  backSpeed: 60,
-  backDelay: 1000,
-  loop: true,
-});
-
-// DOM Elements
+const workoutName = document.getElementById("workout-name");
+const workoutDuration = document.getElementById("workout-duration");
+const caloriesBurned = document.getElementById("calories-burned");
 const workoutList = document.getElementById("workout-list");
-const mealList = document.getElementById("meal-list");
 const logWorkoutBtn = document.getElementById("log-workout");
-const searchMealBtn = document.getElementById("search-meal");
+const mealcontainer = document.getElementById("meal-list");
 
-// Nutritionix API Configuration
-const apiKey = "256324b7c3e2571849f5d04307ab7d5f";
-const appId = "cdcc438c";
-const nutritionixEndpoint =
-  "https://trackapi.nutritionix.com/v2/natural/nutrients";
-
-// Chart.js Configuration
-const progressChart = new Chart(document.getElementById("progressChart"), {
-  type: "line",
-  data: {
-    labels: [], // Dates or workout sessions
-    datasets: [
-      {
-        label: "Calories Burned",
-        data: [], // Calories burned data
-        borderColor: "#45ffca",
-        fill: false,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
+document.addEventListener("DOMContentLoaded", () => {
+  const savedWorkouts = JSON.parse(localStorage.getItem("workouts")) || [];
+  renderWorkouts(savedWorkouts);
 });
 
-// Log Workout
-logWorkoutBtn.addEventListener("click", () => {
-  const workoutName = document.getElementById("workout-name").value;
-  const duration = document.getElementById("workout-duration").value;
-  const calories = document.getElementById("calories-burned").value;
-
-  if (workoutName && duration && calories) {
-    const workoutItem = document.createElement("li");
-    workoutItem.textContent = `${workoutName} - ${duration} mins, ${calories} kcal`;
-    workoutList.appendChild(workoutItem);
-
-    // Update Chart
-    progressChart.data.labels.push(workoutName);
-    progressChart.data.datasets[0].data.push(calories);
-    progressChart.update();
-  }
-});
-
-// Search Meal
-searchMealBtn.addEventListener("click", async () => {
-  const query = document.getElementById("meal-query").value;
-  if (query) {
-    const response = await fetch(nutritionixEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-app-id": appId,
-        "x-app-key": apiKey,
-      },
-      body: JSON.stringify({ query }),
-    });
-    const data = await response.json();
-    displayMeals(data.foods);
-  }
-});
-
-// Display Meals
-function displayMeals(foods) {
-  mealList.innerHTML = "";
-  foods.forEach((food) => {
-    const mealItem = document.createElement("li");
-    mealItem.textContent = `${food.food_name} - ${food.nf_calories} kcal`;
-    mealList.appendChild(mealItem);
+function renderWorkouts(workouts) {
+  workoutList.innerHTML = "";
+  workouts.forEach((workout) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+            <h4>${workout.name}</h4>
+            <p>Duration: ${workout.duration} mins</p>
+            <p>Calories: ${workout.calories}</p>     `;
+    workoutList.appendChild(li);
   });
 }
+logWorkoutBtn.addEventListener("click", () => {
+  let name = workoutName.value.trim();
+  let calories = caloriesBurned.value.trim();
+  let duration = workoutDuration.value.trim();
+  if (name && calories && duration) {
+    const workouts = JSON.parse(localStorage.getItem("Workouts")) || [];
+    const newWorkout = {
+      name,
+      duration,
+      calories,
+    };
+    workouts.push(newWorkout);
+    localStorage.setItem("workouts", JSON.stringify("workouts"));
 
-// Typed.js Initialization
-const typed2 = new Typed(".multiple-text", {
-  strings: [
-    "FitneXX",
-    "Weight Gain",
-    "Strength Training",
-    "Fat Loss",
-    "Weight Lifting",
-    "Running",
-  ],
-  typeSpeed: 50,
-  backSpeed: 60,
-  backDelay: 1000,
-  loop: true,
+    renderWorkouts(workouts);
+
+    workoutName.value = "";
+    workoutDuration.value = "";
+    caloriesBurned.value = "";
+  } else {
+    alert("Please fill in all fields!");
+  }
 });
+
+const API_KEY = "AIzaSyAdatd1AFZXSJZy45UgeAI3HxRDRYsvDHY";
+
+async function generateResponse() {
+  mealcontainer.textContent = "";
+
+  const queryInput = document.getElementById("meal-query").value.trim();
+  if (!queryInput) {
+    alert("Please enter a meal name.");
+    return;
+  }
+  const query = `Provide only the nutritional information for ${queryInput} in the following format: protein: X gm, carbs: Y gm, fats: Z gm, calories: A kcal.`;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents: [{ parts: [{ text: query }] }] }),
+      }
+    );
+
+    const data = await response.json();
+    if (data?.candidates?.length > 0) {
+      const text = data.candidates[0].content.parts[0].text;
+      displayResponse(text);
+    } else {
+      displayResponse("No nutritional data found.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    displayResponse("Error fetching data.");
+  }
+}
+
+function displayResponse(text) {
+  mealcontainer.textContent = text;
+}
+
+document
+  .getElementById("search-meal")
+  .addEventListener("click", generateResponse);
+
+
+  
