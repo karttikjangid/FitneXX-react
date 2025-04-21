@@ -1,23 +1,24 @@
-# Ignore all .log files
+# Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Ignore node_modules folder (for Node.js projects)
-node_modules/
+node_modules
+dist
+dist-ssr
+*.local
 
-# Ignore environment files
-.env
-
-# Ignore compiled Python files
-*.pyc
-
-# Ignore build folders
-dist/
-build/
-
-# Ignore VS Code settings
-.vscode/
-
-# Ignore IDE files (e.g., IntelliJ, Eclipse)
-.idea/
-*.iml
-
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
